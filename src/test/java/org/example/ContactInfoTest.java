@@ -55,6 +55,7 @@ class ContactInfoTest {
             }
         });
     }
+
     @Test
     public void invalid_param_should_throw_exception_in_setPhone() {
         setUp();

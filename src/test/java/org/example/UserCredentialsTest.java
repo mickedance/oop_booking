@@ -1,95 +1,90 @@
 package org.example;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AddressTest {
+class UserCredentialsTest {
 
-    private Address address;
+    private UserCredentials credentials;
 
     public void setUp() {
-        address = new Address("Stockholm", "Storsjövägen 22", "13200");
+        credentials = new UserCredentials("mickeusername", "1234", "user");
     }
 
     @Test
-    public void valid_params_should_not_be_null() {
-        address = new Address("Stockholm", "Järvavägen 33", "10244");
-        Assertions.assertNotNull(address);
-        Assertions.assertNotNull(address.getCity());
-        Assertions.assertNotNull(address.getStreet());
-        Assertions.assertNotNull(address.getZipCode());
-        Assertions.assertNotNull(address.getClass());
-    }
-
-    @Test
-    public void non_valid_params_should_throw_exception_p1() {
-        assertThrows(RuntimeException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                address = new Address(null, "järvavägen 22", "10244");
-            }
-        });
-    }
-
-    @Test
-    public void non_valid_params_should_throw_exception_p2() {
-        assertThrows(RuntimeException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                address = new Address("s", "", "10244");
-            }
-        });
-    }
-
-    @Test
-    public void non_valid_params_should_throw_exception_p3() {
-        assertThrows(RuntimeException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                address = new Address("Stockholm", "street", null);
-            }
-        });
-    }
-
-    @Test
-    public void setStreet_should_throw_exception_with_non_valid_param() {
+    public void valid_param_should_return_success_object() {
         setUp();
 
+        assertNotNull(credentials);
+        assertNotNull(credentials.getId());
+        assertNotNull(credentials.getPassword());
+        assertNotNull(credentials.getRole());
+        assertNotNull(credentials.getUsername());
+        assertNotNull(credentials.getClass());
+    }
+
+    @Test
+    public void invalid_param_should_throw_exception_p1() {
         assertThrows(RuntimeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
-                address.setStreet(null);
+                credentials = new UserCredentials("", "1213", "user");
             }
         });
     }
 
     @Test
-    public void setCity_should_throw_exception_with_non_valid_param() {
-        setUp();
-
+    public void invalid_param_should_throw_exception_p2() {
         assertThrows(RuntimeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
-                address.setCity(null);
+                credentials = new UserCredentials("username", null, "user");
             }
         });
     }
 
     @Test
-    public void setZipCode_should_throw_exception_with_non_valid_param() {
-        setUp();
-
+    public void invalid_param_should_throw_exception_p3() {
         assertThrows(RuntimeException.class, new Executable() {
             @Override
             public void execute() throws Throwable {
-                address.setZipCode(null);
+                credentials = new UserCredentials("username", "password", null);
             }
         });
     }
 
+    @Test
+    public void invalid_param_should_throw_exception_in_setRole() {
+        setUp();
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                credentials.setRole(null);
+            }
+        });
+    }
 
+    @Test
+    public void invalid_param_should_throw_exception_in_setUsername() {
+        setUp();
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                credentials.setUsername(null);
+            }
+        });
+    }
+
+    @Test
+    public void invalid_param_should_throw_exception_in_setPassword() {
+        setUp();
+        assertThrows(RuntimeException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                credentials.setPassword(null);
+            }
+        });
+    }
 }

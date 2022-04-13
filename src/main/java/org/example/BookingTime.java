@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BookingTime {
-    private String id;
+    private final String id;
     private LocalDateTime dateTime;
     private double price;
     private String administrator;
@@ -51,7 +51,8 @@ public class BookingTime {
     }
 
     public void setAdministrator(String administrator) {
-        if (administrator == null || administrator.equals("")) throw new IllegalArgumentException("Param: administrator cannot be null");
+        if (administrator == null || administrator.equals(""))
+            throw new IllegalArgumentException("Param: administrator cannot be null");
 
         this.administrator = administrator;
     }
@@ -87,8 +88,22 @@ public class BookingTime {
         return premises;
     }
 
+    @Override
+    public String toString() {
+        return "BookingTime{" +
+                "id='" + id + '\'' +
+                ", dateTime=" + dateTime +
+                ", price=" + price +
+                ", administrator='" + administrator + '\'' +
+                ", vaccineId='" + vaccineId + '\'' +
+                ", vacant=" + vacant +
+                ", patient=" + patient +
+                ", premises=" + premises +
+                '}';
+    }
+
     public void setPremises(Premises premises) {
-        if (administrator == null) throw new IllegalArgumentException("Param: premises cannot be null");
+        if (premises == null) throw new IllegalArgumentException("Param: premises cannot be null");
         this.premises = premises;
     }
 }
